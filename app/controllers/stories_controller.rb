@@ -33,6 +33,10 @@ class StoriesController < ApplicationController
 		end
 	end
 
+	def index_user
+		render json: { stories: get_private_stories, msg: "Retrieved."}
+	end
+
 	private
 		def story_params
 			params.permit(:title, :public)
@@ -52,8 +56,12 @@ class StoriesController < ApplicationController
 			get_private_story || get_stories.find_by(id: params[:id])
 		end
 
+		def get_private_stories
+			current_user&.stories || []
+		end
+
 		# show stories by user
 		def get_private_story
-			current_user&.stories.find_by(id: params[:id])
+			get_private_stories.find_by(id: params[:id])
 		end
 end
