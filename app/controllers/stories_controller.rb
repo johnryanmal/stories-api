@@ -1,33 +1,33 @@
 class StoriesController < ApplicationController
 	def index
-		render json: Story.all
+		render json: { stories: Story.all, msg: "Retreived." }
 	end
 
 	def create
 		story = Story.new(story_params)
 		if story.save
-			render json: story
+			render json: { story: story, msg: "Created." }
 		end
 	end
 
 	def show
 		story = Story.find_by(id: params[:id])
 		if story
-			render json: story
+			render json: { story: story, msg: "Found." }
 		end
 	end
 
 	def update
 		story = Story.find_by(id: params[:id])
 		if story&.update(story_params)
-			render json: story
+			render json: { story: story, msg: "Updated." }
 		end
 	end
 
 	def destroy
 		story = Story.find_by(id: params[:id])
 		if story&.destroy&.destroyed?
-			render json: { msg: "Destroyed." }
+			render json: { story: story, msg: "Destroyed." }
 		end
 	end
 
