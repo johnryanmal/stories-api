@@ -11,21 +11,21 @@ class StoriesController < ApplicationController
 	end
 
 	def show
-		story = Story.find_by(id: params[:id])
+		story = get_current_story
 		if story
 			render json: { story: story, msg: "Found." }
 		end
 	end
 
 	def update
-		story = Story.find_by(id: params[:id])
+		story = get_current_story
 		if story&.update(story_params)
 			render json: { story: story, msg: "Updated." }
 		end
 	end
 
 	def destroy
-		story = Story.find_by(id: params[:id])
+		story = get_current_story
 		if story&.destroy&.destroyed?
 			render json: { story: story, msg: "Destroyed." }
 		end
@@ -37,5 +37,9 @@ class StoriesController < ApplicationController
 				title: params[:title],
 				graph: params[:graph]
 			}
+		end
+
+		def get_current_story
+			Story.find_by(id: params[:id])
 		end
 end
