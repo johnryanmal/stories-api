@@ -1,4 +1,6 @@
 class StoriesController < ApplicationController
+	before_action :authenticate_user, only: [:create, :update, :destroy]
+
 	def index
 		render json: { stories: Story.all, msg: "Retreived." }
 	end
