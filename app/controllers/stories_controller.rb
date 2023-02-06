@@ -2,7 +2,7 @@ class StoriesController < ApplicationController
 	before_action :authenticate_user, only: [:create, :update, :destroy]
 
 	def index
-		render json: { stories: Story.all, msg: "Retreived." }
+		render json: { stories: get_stories, msg: "Retreived." }
 	end
 
 	def create
@@ -20,14 +20,14 @@ class StoriesController < ApplicationController
 	end
 
 	def update
-		story = get_story
+		story = get_private_story
 		if story&.update(story_params)
 			render json: { story: story, msg: "Updated." }
 		end
 	end
 
 	def destroy
-		story = get_story
+		story = get_private_story
 		if story&.destroy&.destroyed?
 			render json: { story: story, msg: "Destroyed." }
 		end
@@ -35,19 +35,25 @@ class StoriesController < ApplicationController
 
 	private
 		def story_params
-			{
+			params.permit(:title, :public)
+			.merge(
 				user_id: current_user.id,
-				title: params[:title],
-				graph: params[:graph]
-			}
+				graph: params.require(:graph).permit!
+			)
 		end
 
+		# index public stories
+		def get_stories
+			Story.where(public: true)
+		end
+
+		# show stories visible to user
 		def get_story
-			story = Story.find_by(id: params[:id])
-			if story
-				if story.user_id == current_user&.id
-					return story
-				end
-			end
+			get_private_story || get_stories.find_by(id: params[:id])
+		end
+
+		# show stories by user
+		def get_private_story
+			current_user&.stories.find_by(id: params[:id])
 		end
 end

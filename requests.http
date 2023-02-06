@@ -24,14 +24,15 @@ Content-Type: application/json
 
 ### Stories create
 POST http://localhost:3000/stories
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NzU4MDA0NjB9.gQk-DMuVF4xVYiDUAobo_5YDAYndXPq94C34wP8r4WI
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NzU4MDM3OTV9.jhm_dnaYqKaL-N8PL8igWi0wFb4RHO-N_EStIBnVzVw
 Content-Type: application/json
 
 {
   "title": "My story",
   "graph": {
 		"start": "It all begins here..."
-	}
+	},
+  "public": true
 }
 
 ### Stories show
@@ -40,7 +41,7 @@ Content-Type: application/json
 
 ### Stories update
 PATCH http://localhost:3000/stories/1.json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NzU4MDA0NjB9.gQk-DMuVF4xVYiDUAobo_5YDAYndXPq94C34wP8r4WI
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NzU4MDM3OTV9.jhm_dnaYqKaL-N8PL8igWi0wFb4RHO-N_EStIBnVzVw
 Content-Type: application/json
 
 {
