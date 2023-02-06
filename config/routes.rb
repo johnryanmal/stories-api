@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get "/stories" => "stories#index"
   post "/stories" => "stories#create"
   get "/stories/:id" => "stories#show"
+  delete "/stories/:id" => "stories#destroy"
 end

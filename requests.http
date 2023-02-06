@@ -22,10 +22,6 @@ Content-Type: application/json
 GET http://localhost:3000/stories.json
 Content-Type: application/json
 
-### Stories show
-GET http://localhost:3000/stories/1.json
-Content-Type: application/json
-
 ### Stories create
 POST http://localhost:3000/stories
 Content-Type: application/json
@@ -36,3 +32,11 @@ Content-Type: application/json
 		"start": "It all begins here..."
 	}
 }
+
+### Stories show
+GET http://localhost:3000/stories/1.json
+Content-Type: application/json
+
+### Stories destroy
+DELETE http://localhost:3000/stories/6.json
+Content-Type: application/json
