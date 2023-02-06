@@ -24,6 +24,7 @@ Content-Type: application/json
 
 ### Stories create
 POST http://localhost:3000/stories
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NzU4MDA0NjB9.gQk-DMuVF4xVYiDUAobo_5YDAYndXPq94C34wP8r4WI
 Content-Type: application/json
 
 {
@@ -34,11 +35,12 @@ Content-Type: application/json
 }
 
 ### Stories show
-GET http://localhost:3000/stories/1.json
+GET http://localhost:3000/stories/2.json
 Content-Type: application/json
 
 ### Stories update
-PATCH http://localhost:3000/stories/6.json
+PATCH http://localhost:3000/stories/1.json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NzU4MDA0NjB9.gQk-DMuVF4xVYiDUAobo_5YDAYndXPq94C34wP8r4WI
 Content-Type: application/json
 
 {
@@ -50,5 +52,6 @@ Content-Type: application/json
 }
 
 ### Stories destroy
-DELETE http://localhost:3000/stories/6.json
+DELETE http://localhost:3000/stories/1.json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NzU4MDA0NjB9.gQk-DMuVF4xVYiDUAobo_5YDAYndXPq94C34wP8r4WI
 Content-Type: application/json
