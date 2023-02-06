@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "stories#index"
+
   post "/users" => "users#create"
   post "/sessions" => "sessions#create"
 
