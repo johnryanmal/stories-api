@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   post "/sessions" => "sessions#create"
 
   get "/stories" => "stories#index"
+  get "/stories/:id" => "stories#show"
 end

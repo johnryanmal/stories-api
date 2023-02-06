@@ -21,3 +21,7 @@ Content-Type: application/json
 ### Stories index
 GET http://localhost:3000/stories.json
 Content-Type: application/json
+
+### Stories index
+GET http://localhost:3000/stories/1.json
+Content-Type: application/json
