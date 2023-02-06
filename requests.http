@@ -37,6 +37,18 @@ Content-Type: application/json
 GET http://localhost:3000/stories/1.json
 Content-Type: application/json
 
+### Stories update
+PATCH http://localhost:3000/stories/6.json
+Content-Type: application/json
+
+{
+  "title": "My updated story",
+  "graph": {
+		"start": "It all begins here...",
+    "journey": "The adventure begins."
+	}
+}
+
 ### Stories destroy
 DELETE http://localhost:3000/stories/6.json
 Content-Type: application/json

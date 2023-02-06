@@ -17,6 +17,13 @@ class StoriesController < ApplicationController
 		end
 	end
 
+	def update
+		story = Story.find_by(id: params[:id])
+		if story&.update(story_params)
+			render json: story
+		end
+	end
+
 	def destroy
 		story = Story.find_by(id: params[:id])
 		if story&.destroy&.destroyed?
