@@ -57,7 +57,7 @@ class StoriesController < ApplicationController
 		end
 
 		def get_private_stories
-			current_user&.stories
+			current_user&.stories || []
 		end
 
 		# show stories by user
