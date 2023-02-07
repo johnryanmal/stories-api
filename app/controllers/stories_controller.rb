@@ -57,11 +57,11 @@ class StoriesController < ApplicationController
 		end
 
 		def get_private_stories
-			current_user&.stories
+			current_user&.stories || Story.none
 		end
 
 		# show stories by user
 		def get_private_story
-			get_private_stories.find_by(id: params[:id])
+			get_private_stories&.find_by(id: params[:id])
 		end
 end
