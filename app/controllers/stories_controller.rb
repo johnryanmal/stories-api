@@ -2,7 +2,7 @@ class StoriesController < ApplicationController
 	before_action :authenticate_user, only: [:create, :update, :destroy]
 
 	def index
-		render json: { stories: get_stories, msg: "Retreived." }
+		render json: { stories: get_stories.as_json(except: [:graph]), msg: "Retreived." }
 	end
 
 	def create
