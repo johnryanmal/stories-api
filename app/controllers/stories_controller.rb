@@ -39,10 +39,9 @@ class StoriesController < ApplicationController
 
 	private
 		def story_params
-			params.permit(:title, :public)
+			params.permit(:title, :public, graph: {})
 			.merge(
-				user_id: current_user.id,
-				graph: params[:graph] || {}
+				user_id: current_user.id
 			)
 		end
 
