@@ -20,6 +20,7 @@ Content-Type: application/json
 
 ### Stories index
 GET http://localhost:3000/stories.json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NzY0MDA3MjN9.keEaTV5PIkLAW-nClMFTHT4uYMVAdfI2t09MfHw84Pk
 Content-Type: application/json
 
 ### Stories create

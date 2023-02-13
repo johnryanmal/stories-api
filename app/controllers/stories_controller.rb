@@ -2,9 +2,8 @@ class StoriesController < ApplicationController
 	before_action :authenticate_user, only: [:create, :update, :destroy]
 
 	def index
-		stories = render_stories(get_stories, owned: false)
-		private_stories = render_stories(get_private_stories, owned: true)
-		render json: { stories: stories + private_stories, msg: "Retreived." }
+		stories = get_stories
+		render json: { stories: render_stories(stories), msg: "Retreived." }
 	end
 
 	def create
@@ -15,11 +14,8 @@ class StoriesController < ApplicationController
 	end
 
 	def show
-		if (story = get_private_story)
-			render json: { story: render_story(story, owned: true), msg: "Found." }
-		elsif (story = get_story)
-			render json: { story: render_story(story, owned: false), msg: "Found." }
-		end
+		story = get_story
+		render json: { story: render_story(story), msg: "Found." }
 	end
 
 	def update
@@ -37,8 +33,8 @@ class StoriesController < ApplicationController
 	end
 
 	def index_user
-		stories = render_stories(get_private_stories, owned: true)
-		render json: { stories: stories, msg: "Retrieved."}
+		stories = get_private_stories
+		render json: { stories: render_stories(stories), msg: "Retrieved."}
 	end
 
 	private
@@ -49,30 +45,38 @@ class StoriesController < ApplicationController
 			)
 		end
 
-		# index public stories
+		# stories visible to user
 		def get_stories
-			Story.where(public: true)
+			get_public_stories.or(get_private_stories)
 		end
 
-		# show stories visible to user
 		def get_story
 			get_stories.find_by(id: params[:id])
 		end
 
+		# public stories
+		def get_public_stories
+			Story.where(public: true)
+		end
+
+		# stories by user
 		def get_private_stories
 			current_user&.stories || Story.none
 		end
 
-		# show stories by user
 		def get_private_story
 			get_private_stories.find_by(id: params[:id])
 		end
 
 		def render_stories(stories, **kwargs)
-			stories.as_json(except: [:graph]).map{ |story| story.merge(**kwargs) }
+			stories.map do |story|
+				render_story(story, except: [:graph], **kwargs)
+			end
 		end
 
 		def render_story(story, **kwargs)
-			story.as_json.merge(**kwargs)
+			story.as_json(**kwargs).merge(
+				owned: (current_user && current_user.id == story.user_id) ? true : false
+			)
 		end
 end
