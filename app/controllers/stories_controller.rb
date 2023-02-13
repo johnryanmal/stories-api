@@ -2,39 +2,43 @@ class StoriesController < ApplicationController
 	before_action :authenticate_user, only: [:create, :update, :destroy]
 
 	def index
-		render json: { stories: get_stories.as_json(except: [:graph]), msg: "Retreived." }
+		stories = render_stories(get_stories, owned: false)
+		private_stories = render_stories(get_private_stories, owned: true)
+		render json: { stories: stories + private_stories, msg: "Retreived." }
 	end
 
 	def create
 		story = Story.new(story_params)
 		if story.save
-			render json: { story: story, msg: "Created." }
+			render json: { story: render_story(story), msg: "Created." }
 		end
 	end
 
 	def show
-		story = get_story
-		if story
-			render json: { story: story, msg: "Found." }
+		if (story = get_private_story)
+			render json: { story: render_story(story, owned: true), msg: "Found." }
+		elsif (story = get_story)
+			render json: { story: render_story(story, owned: false), msg: "Found." }
 		end
 	end
 
 	def update
 		story = get_private_story
 		if story&.update(story_params)
-			render json: { story: story, msg: "Updated." }
+			render json: { story: render_story(story), msg: "Updated." }
 		end
 	end
 
 	def destroy
 		story = get_private_story
 		if story&.destroy&.destroyed?
-			render json: { story: story, msg: "Destroyed." }
+			render json: { story: render_story(story), msg: "Destroyed." }
 		end
 	end
 
 	def index_user
-		render json: { stories: get_private_stories, msg: "Retrieved."}
+		stories = render_stories(get_private_stories, owned: true)
+		render json: { stories: stories, msg: "Retrieved."}
 	end
 
 	private
@@ -52,7 +56,7 @@ class StoriesController < ApplicationController
 
 		# show stories visible to user
 		def get_story
-			get_private_story || get_stories.find_by(id: params[:id])
+			get_stories.find_by(id: params[:id])
 		end
 
 		def get_private_stories
@@ -61,6 +65,14 @@ class StoriesController < ApplicationController
 
 		# show stories by user
 		def get_private_story
-			get_private_stories&.find_by(id: params[:id])
+			get_private_stories.find_by(id: params[:id])
+		end
+
+		def render_stories(stories, **kwargs)
+			stories.as_json(except: [:graph]).map{ |story| story.merge(**kwargs) }
+		end
+
+		def render_story(story, **kwargs)
+			story.as_json.merge(**kwargs)
 		end
 end
