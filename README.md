@@ -28,12 +28,12 @@ rake db:create db:migrate
 
 1. Start the servers
 
-[Backend] - Start rails
+[Backend] Start rails
 ```
 rails server
 ```
 
-[Frontend] - Start vite
+[Frontend] Start vite
 ```
 npm run dev
 ```
