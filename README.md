@@ -1,24 +1,41 @@
-# README
+# Stories
+[Frontend](https://github.com/johnryanmal/stories#stories) / Backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Stories is an app that lets users create interactive stories, represented as a directed graph. Made using [react-digraph](https://github.com/uber/react-digraph).
 
-Things you may want to cover:
+## Installation
+1. Clone the repository
+```
+git clone https://github.com/johnryanmal/stories-api
+```
 
-* Ruby version
+2. Enter the repository (Backend)
+```
+cd stories-api/
+```
 
-* System dependencies
+3. [Backend] Install dependencies
+```
+bundle install
+```
 
-* Configuration
+4. [Backend] Create the database
+```
+rake db:create db:migrate
+```
 
-* Database creation
+## Usage
 
-* Database initialization
+1. Start the servers
 
-* How to run the test suite
+[Backend] Start rails
+```
+rails server
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+[Frontend] Start vite
+```
+npm run dev
+```
 
-* Deployment instructions
-
-* ...
+2. Go to http://localhost:5173 (or wherever Vite is hosting if you have a different config)
