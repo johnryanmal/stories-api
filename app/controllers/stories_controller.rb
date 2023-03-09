@@ -76,7 +76,8 @@ class StoriesController < ApplicationController
 
 		def render_story(story, **kwargs)
 			story.as_json(**kwargs).merge(
-				owned: (current_user && current_user.id == story.user_id) ? true : false
+				owned: (current_user && current_user.id == story.user_id) ? true : false,
+				author: story.user.name
 			)
 		end
 end
