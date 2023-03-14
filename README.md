@@ -5,22 +5,22 @@ Stories is an app that lets users create interactive stories, represented as a d
 
 ## Installation
 1. Clone the repository
-```
+```shell
 git clone https://github.com/johnryanmal/stories-api
 ```
 
 2. Enter the repository (Backend)
-```
+```shell
 cd stories-api/
 ```
 
 3. [Backend] Install dependencies
-```
+```shell
 bundle install
 ```
 
 4. [Backend] Create the database
-```
+```shell
 rake db:create db:migrate
 ```
 
@@ -29,12 +29,12 @@ rake db:create db:migrate
 1. Start the servers
 
 [Backend] Start rails
-```
+```shell
 rails server
 ```
 
 [Frontend] Start vite
-```
+```shell
 npm run dev
 ```
 
